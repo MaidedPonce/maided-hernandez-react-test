@@ -34,6 +34,8 @@ const LoginForm: React.FC = () => {
     ) {
       setIsLogged(true)
       navigate('/products', { replace: true })
+    } else {
+      toast.error('There is an error with your email or password')
     }
   }
 
