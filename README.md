@@ -20,6 +20,7 @@ To run the project locally, follow these steps:
 **1. To create an optimized production build, run:**
 `yarn build
 `
+
 **2. Run the following command to deploy the application**
 `yarn deploy
 `
