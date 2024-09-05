@@ -1,5 +1,5 @@
 {
-  "name": "tianquiztlinet",
+  "name": "maided-hernandez-react-test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -57,5 +57,5 @@
     "globals": "^15.9.0",
     "typescript-eslint": "^8.4.0"
   },
-  "homepage": "https://MaidedPonce.github.io/tianquiztlinet"
+  "homepage": "https://MaidedPonce.github.io/maided-hernandez-react-test"
 }
