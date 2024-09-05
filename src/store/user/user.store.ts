@@ -8,13 +8,9 @@ const storeApi: StateCreator<
   [['zustand/devtools', never], ['zustand/immer', never]]
 > = (set) => ({
   email: '',
-  password: '',
-  confirmPassword: '',
-  setUser: (user) =>
+  setUser: (email: string) =>
     set({
-      email: user.email,
-      password: user.password,
-      confirmPassword: user.confirmPassword,
+      email,
     }),
 })
 

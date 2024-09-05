@@ -4,6 +4,7 @@ export interface User {
   confirmPassword: string
 }
 
-export interface UserStore extends User {
-  setUser: (user: User) => void
+export interface UserStore {
+  email: string
+  setUser: (email: string) => void
 }

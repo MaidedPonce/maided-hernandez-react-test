@@ -1,0 +1,11 @@
+.productImage {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    border-radius: 100%;
+    overflow: hidden;
+    .image {
+        width: 100%;
+        object-fit: contain;
+    }
+}

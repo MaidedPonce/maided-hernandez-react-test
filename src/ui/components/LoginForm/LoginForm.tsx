@@ -16,8 +16,8 @@ const LoginForm = () => {
   const setUserStore = useUserStore((state) => state.setUser)
   const navigate = useNavigate()
 
-  const handleEncrypt = (password: string) => {
-    const encrypted = CryptoJS.AES.encrypt(password, 'secretKey').toString()
+  const handleEncrypt = (info: string) => {
+    const encrypted = CryptoJS.AES.encrypt(info, 'secretKey').toString()
     return encrypted
   }
 
@@ -26,13 +26,8 @@ const LoginForm = () => {
     if (!validatePassword(user.password)) return
     if (!validateEmail(user.email)) return
     if (!isSamePassword(user.password, user.confirmPassword)) return
-    const passwordEncrypted = handleEncrypt(user.password)
-    const parsedUser = {
-      ...user,
-      password: passwordEncrypted,
-      confirmPassword: passwordEncrypted,
-    }
-    setUserStore(parsedUser)
+    const email = handleEncrypt(user.email)
+    setUserStore(email)
     navigate('/products', { replace: true })
   }
   return (

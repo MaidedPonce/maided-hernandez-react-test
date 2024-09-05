@@ -4,6 +4,8 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import Login from './Login'
 import NotFound from './NotFound'
 import Products from './Products'
+import Auth from 'ui/components/Auth/Auth'
+import CreateProduct from './CreateProduct'
 
 function App() {
   return (
@@ -15,6 +17,24 @@ function App() {
             element={<Login />}
           />
           {/* Privadas */}
+          <Route element={<Auth />}>
+            <Route
+              path='/products'
+              element={<Products />}
+            />
+            <Route
+              path='/products/:id'
+              element={<NotFound />}
+            />
+            <Route
+              path='/products/create'
+              element={<CreateProduct />}
+            />
+            <Route
+              path='/users'
+              element={<NotFound />}
+            />
+          </Route>
           <Route
             path='/products'
             element={<Products />}
