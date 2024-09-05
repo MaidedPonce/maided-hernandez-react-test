@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/maided-hernandez-react-test/static/css/main.a28a5d12.css",
-    "main.js": "/maided-hernandez-react-test/static/js/main.e25574eb.js",
-    "static/js/453.64afa569.chunk.js": "/maided-hernandez-react-test/static/js/453.64afa569.chunk.js",
+    "main.js": "/maided-hernandez-react-test/static/js/main.06b8be82.js",
+    "static/js/453.cd17e1ed.chunk.js": "/maided-hernandez-react-test/static/js/453.cd17e1ed.chunk.js",
     "index.html": "/maided-hernandez-react-test/index.html",
     "main.a28a5d12.css.map": "/maided-hernandez-react-test/static/css/main.a28a5d12.css.map",
-    "main.e25574eb.js.map": "/maided-hernandez-react-test/static/js/main.e25574eb.js.map",
-    "453.64afa569.chunk.js.map": "/maided-hernandez-react-test/static/js/453.64afa569.chunk.js.map"
+    "main.06b8be82.js.map": "/maided-hernandez-react-test/static/js/main.06b8be82.js.map",
+    "453.cd17e1ed.chunk.js.map": "/maided-hernandez-react-test/static/js/453.cd17e1ed.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a28a5d12.css",
-    "static/js/main.e25574eb.js"
+    "static/js/main.06b8be82.js"
   ]
 }
