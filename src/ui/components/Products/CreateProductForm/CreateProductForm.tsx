@@ -2,9 +2,11 @@ import React, { useRef, useState } from 'react'
 import { createProduct } from 'services/products/products.services'
 import { Product } from 'store/products/product.type'
 import { useProductsStore } from 'store/products/products.store'
+import styles from './CreateProduct.module.scss'
 import { v4 as uuidv4 } from 'uuid'
+import toast from 'react-hot-toast'
 
-const CreateProductForm = () => {
+const CreateProductForm: React.FC = () => {
   const [product, setProduct] = useState({
     title: '',
     price: 0,
@@ -58,7 +60,7 @@ const CreateProductForm = () => {
       !product.category ||
       !product.image
     ) {
-      console.log('All fields are required and price must be greater than 0.')
+      toast.error('All fields are required and price must be greater than 0.')
       return
     }
     setLoading(true)
@@ -87,77 +89,88 @@ const CreateProductForm = () => {
         fileInputRef.current.value = ''
       }
     } catch (error) {
+      toast.error('Error creating product')
       console.error('Error creating product:', error)
     } finally {
-      setLoading(false) // Desactivar estado de carga
+      setLoading(false)
     }
   }
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor='title'>Title</label>
-      <input
-        id='title'
-        type='text'
-        value={product.title}
-        required
-        placeholder='T-shirt'
-        onChange={(e) => setProduct({ ...product, title: e.target.value })}
-      />
-      <label htmlFor='price'>Price</label>
-      <input
-        id='price'
-        type='text'
-        value={product.price}
-        required
-        placeholder='20'
-        onChange={(e) => {
-          const value = Number(e.target.value)
-          if (Number.isNaN(value)) return
-          setProduct({ ...product, price: value })
-        }}
-      />
-      <label htmlFor='description'>Description</label>
-      <input
-        id='description'
-        type='text'
-        value={product.description}
-        required
-        placeholder='This t-shirt....'
-        onChange={(e) =>
-          setProduct({ ...product, description: e.target.value })
-        }
-      />
-      <label htmlFor='category'>Category</label>
-      <input
-        id='category'
-        type='text'
-        value={product.category}
-        required
-        placeholder='Clothes'
-        onChange={(e) => setProduct({ ...product, category: e.target.value })}
-      />
-      <label htmlFor='image'>Image</label>
-      <input
-        id='image'
-        type='file'
-        accept='image/*'
-        onChange={handleImageChange}
-        ref={fileInputRef}
-      />
-      {imagePreview && (
-        <img
-          src={imagePreview}
-          alt='Product Preview'
-          style={{ maxWidth: '200px', marginTop: '10px' }}
-        />
-      )}
-      <button
-        type='submit'
-        disabled={loading}
+    <section className='subContainer'>
+      <form
+        className={styles.createProductForm}
+        onSubmit={onSubmit}
       >
-        {loading ? 'Creating...' : 'Create Product'}
-      </button>
-    </form>
+        <label htmlFor='title'>Title</label>
+        <input
+          className='field'
+          id='title'
+          type='text'
+          value={product.title}
+          required
+          placeholder='T-shirt'
+          onChange={(e) => setProduct({ ...product, title: e.target.value })}
+        />
+        <label htmlFor='price'>Price</label>
+        <input
+          className='field'
+          id='price'
+          type='text'
+          value={product.price}
+          required
+          placeholder='20'
+          onChange={(e) => {
+            const value = Number(e.target.value)
+            if (Number.isNaN(value)) return
+            setProduct({ ...product, price: value })
+          }}
+        />
+        <label htmlFor='description'>Description</label>
+        <textarea
+          className='field'
+          id='description'
+          value={product.description}
+          required
+          placeholder='This t-shirt....'
+          onChange={(e) =>
+            setProduct({ ...product, description: e.target.value })
+          }
+        />
+        <label htmlFor='category'>Category</label>
+        <input
+          className='field'
+          id='category'
+          type='text'
+          value={product.category}
+          required
+          placeholder='Clothes'
+          onChange={(e) => setProduct({ ...product, category: e.target.value })}
+        />
+        <label htmlFor='image'>Image</label>
+        <input
+          className='field'
+          id='image'
+          type='file'
+          accept='image/*'
+          onChange={handleImageChange}
+          ref={fileInputRef}
+        />
+        {imagePreview && (
+          <img
+            src={imagePreview}
+            alt='Product Preview'
+            style={{ maxWidth: '200px', marginTop: '10px' }}
+          />
+        )}
+        <button
+          type='submit'
+          disabled={loading}
+          className={loading ? 'button disabled' : 'button darkButton'}
+        >
+          {loading ? 'Creating...' : 'Create Product'}
+        </button>
+      </form>{' '}
+    </section>
   )
 }
 

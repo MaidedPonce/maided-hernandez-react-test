@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { useUserStore } from 'store/user/user.store'
 import { handleDecrypt, handleEncrypt } from 'utils/encrypt'
-
-const User = () => {
+import styles from './User.module.scss'
+const User: React.FC = () => {
   const email = useUserStore((state) => state.email)
   const password = useUserStore((state) => state.password)
   const setUser = useUserStore((state) => state.setUser)
@@ -26,36 +26,44 @@ const User = () => {
   }
 
   return (
-    <div>
+    <section className='subContainer'>
       <h1>Hi, {formData.email}!</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Email:
-            <input
-              type='email'
-              name='email'
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password:
-            <input
-              type='password'
-              name='password'
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
-        <button type='submit'>Update</button>
+      <form
+        className={styles.userForm}
+        onSubmit={handleSubmit}
+      >
+        <label htmlFor='email'>
+          <strong>Email</strong>
+        </label>
+        <input
+          className='field'
+          id='email'
+          type='email'
+          name='email'
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
+        <label className='password'>
+          <strong>Password</strong>
+        </label>
+        <input
+          className='field'
+          id='password'
+          type='password'
+          name='password'
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <button
+          className='button'
+          type='submit'
+        >
+          Update
+        </button>
       </form>
-    </div>
+    </section>
   )
 }
 

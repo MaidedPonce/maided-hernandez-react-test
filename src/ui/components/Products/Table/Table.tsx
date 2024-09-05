@@ -7,7 +7,7 @@ import { FaEye, FaSort } from 'react-icons/fa6'
 import Navigation from './Navigation/Navigation'
 import { useNavigate } from 'react-router-dom'
 
-const Table = () => {
+const Table: React.FC = () => {
   const dataStored = useProductsStore((state) => state.products)
   const [page, setPage] = useState(0)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -18,7 +18,7 @@ const Table = () => {
     direction: 'asc' | 'desc'
   }>({ key: 'title', direction: 'asc' })
   const [result, setResult] = useState('')
-
+  const [loading, setLoading] = useState(true)
   const setProducts = useProductsStore((state) => state.setProducts)
   const setProduct = useProductsStore((state) => state.setProduct)
 
@@ -71,7 +71,7 @@ const Table = () => {
     const { signal } = controller
 
     if (hasFetched) return
-
+    setLoading(true)
     getProducts({ signal })
       .then((data) => {
         if (!signal.aborted) {
@@ -84,6 +84,9 @@ const Table = () => {
           console.error(error)
         }
       })
+      .finally(() => {
+        setLoading(false)
+      })
 
     return () => {
       controller.abort()
@@ -95,13 +98,12 @@ const Table = () => {
     const chunks = Array.from({ length: Math.ceil(arr.length / 5) }, (v, i) =>
       arr.slice(i * 5, i * 5 + 5)
     )
-    console.log(chunks[page], page)
     return chunks[page]
   }, [currentIndex, page, newData, getResults])
 
   const nextoffset = () => {
     if (newData.length === 0) return
-    if (pagination?.length >= 5) setPage(page + 1)
+    if (pagination?.length >= 5 && currentIndex === 4) setPage(page + 1)
     if (pagination?.length < 5) {
       return setCurrentIndex((prev) => prev + 1)
     } else {
@@ -122,92 +124,105 @@ const Table = () => {
     return newData[pageNum]
   }
   return (
-    <>
-      <input
-        type='text'
-        value={result}
-        onChange={(e) => setResult(e.target.value)}
-      />
-      <table className='w-full text-sm text-left rtl:text-right text-gray-500'>
-        <thead className='text-xs text-gray-700 uppercase '>
-          <tr>
-            <th
-              scope='col'
-              className='px-6 py-3 bg-gray-50 text-center'
-            >
-              Image
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 bg-gray-50 text-center'
-              onClick={() => requestSort('title')}
-            >
-              Title
-              <FaSort />
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 bg-gray-50 text-center'
-              onClick={() => requestSort('price')}
-            >
-              Price
-              <FaSort />
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 bg-gray-50 text-center'
-              onClick={() => requestSort('category')}
-            >
-              Category
-              <FaSort />
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 bg-gray-50 text-center'
-            >
-              See more...
-              <FaSort />
-            </th>
-          </tr>
-        </thead>
-        <tbody className='border-b border-gray-200'>
-          {getResults?.map((product: Product) => (
-            <tr
-              key={product.id}
-              className='px-6 py-4 h-12 text-center font-medium text-gray-900 whitespace-nowrap bg-gray-50'
-            >
-              <td>
-                <figure className={styles.productImage}>
-                  <img
-                    src={product.image}
-                    alt={product.description}
-                    className={styles.image}
-                  />
-                </figure>
-              </td>
-              <td>{product.title}</td>
-              <td>{product.price}</td>
-              <td>{product.category}</td>
-              <td
-                onClick={() => {
-                  setProduct(product)
-                  navigate(`/products/id=${product.id}`)
-                }}
-              >
-                <FaEye />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <Navigation
-        currentIndex={currentIndex}
-        prevoffset={prevoffset}
-        nextoffset={nextoffset}
-        pagination={pagination}
-        handleGoToPage={handleGoToPage}
-      />
-    </>
+    <section className={`${styles.tableContainer} subContainer`}>
+      {getResults.length === 0 && !loading ? (
+        <p>There is not available data</p>
+      ) : loading ? (
+        'Loading data....'
+      ) : (
+        <>
+          <input
+            type='text'
+            value={result}
+            className={`field ${styles.input}`}
+            placeholder='Search...'
+            onChange={(e) => setResult(e.target.value)}
+          />
+          <table className={styles.table}>
+            <thead className='text-xs text-gray-700 uppercase '>
+              <tr>
+                <th
+                  scope='col'
+                  className={styles.head}
+                >
+                  Image
+                </th>
+                <th
+                  scope='col'
+                  onClick={() => requestSort('title')}
+                >
+                  <div className={styles.head}>
+                    Title
+                    <FaSort />
+                  </div>
+                </th>
+                <th
+                  scope='col'
+                  onClick={() => requestSort('price')}
+                >
+                  <div className={styles.head}>
+                    Price
+                    <FaSort />
+                  </div>
+                </th>
+                <th
+                  scope='col'
+                  onClick={() => requestSort('category')}
+                >
+                  <div className={styles.head}>
+                    Category
+                    <FaSort />
+                  </div>
+                </th>
+                <th scope='col'>See more...</th>
+              </tr>
+            </thead>
+            <tbody className='border-b border-gray-200'>
+              {getResults?.map((product: Product) => (
+                <tr
+                  key={product.id}
+                  className='px-6 py-4 h-12 text-center font-medium text-gray-900 whitespace-nowrap bg-gray-50'
+                >
+                  <td>
+                    <figure className={styles.productImage}>
+                      <img
+                        src={product.image}
+                        alt={product.description}
+                        className={styles.image}
+                      />
+                    </figure>
+                  </td>
+                  <td>
+                    <p className={styles.cell}>{product.title}</p>
+                  </td>
+                  <td>
+                    <p className={styles.cell}>{product.price}</p>
+                  </td>
+                  <td>
+                    <p className={styles.cell}>{product.category}</p>
+                  </td>
+                  <td
+                    onClick={() => {
+                      setProduct(product)
+                      navigate(`/products/id=${product.id}`)
+                    }}
+                  >
+                    <FaEye className={styles.eye} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <Navigation
+            currentIndex={currentIndex}
+            prevoffset={prevoffset}
+            nextoffset={nextoffset}
+            pagination={pagination}
+            handleGoToPage={handleGoToPage}
+          />
+        </>
+      )}
+    </section>
   )
 }
 

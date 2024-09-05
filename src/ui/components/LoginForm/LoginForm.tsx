@@ -6,8 +6,9 @@ import { User } from 'store/user/user.type'
 import { useUserStore } from 'store/user/user.store'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { handleDecrypt } from 'utils/encrypt'
+import toast from 'react-hot-toast'
 
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
   const [user, setUser] = useState<User>({
     email: '',
     password: '',
@@ -18,12 +19,15 @@ const LoginForm = () => {
   const password = useUserStore((state) => state.password)
   const setIsLogged = useUserStore((state) => state.setIsLogged)
   const isLogged = useUserStore((state) => state.isLogged)
-
+  console.log(email)
   const onSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
-    if (!validatePassword(user.password)) return
-    if (!validateEmail(user.email)) return
-    if (!isSamePassword(user.password, user.confirmPassword)) return
+    if (!validatePassword(user.password))
+      return toast.error('There is an error with your password')
+    if (!validateEmail(user.email))
+      return toast.error('There is an error with your email')
+    if (!isSamePassword(user.password, user.confirmPassword))
+      return toast.error('Two password do not match')
     if (
       handleDecrypt(email) === user.email &&
       handleDecrypt(password) === user.password
@@ -45,10 +49,17 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className={styles.loginForm}
+      className={`subContainer ${styles.loginForm}`}
     >
-      <label htmlFor='email'>Email</label>
+      <h1>Login</h1>
+      <label
+        className={styles.title}
+        htmlFor='email'
+      >
+        Email
+      </label>
       <input
+        className='field'
         id='email'
         type='email'
         value={user.email}
@@ -57,8 +68,14 @@ const LoginForm = () => {
         autoComplete='on'
         onChange={(e) => setUser({ ...user, email: e.target.value })}
       />
-      <label htmlFor='password'>Password</label>
+      <label
+        className={styles.title}
+        htmlFor='password'
+      >
+        Password
+      </label>
       <input
+        className='field'
         id='password'
         value={user.password}
         required
@@ -69,9 +86,15 @@ const LoginForm = () => {
         minLength={6}
         maxLength={12}
       />
-      <label htmlFor='confirmPassword'>Confirm password</label>
+      <label
+        className={styles.title}
+        htmlFor='confirmPassword'
+      >
+        Confirm password
+      </label>
 
       <input
+        className='field'
         type='password'
         id='confirmPassword'
         value={user.confirmPassword}
@@ -80,7 +103,12 @@ const LoginForm = () => {
         required
       />
 
-      <button type='submit'>Enter</button>
+      <button
+        className='button darkButton'
+        type='submit'
+      >
+        Login
+      </button>
     </form>
   )
 }

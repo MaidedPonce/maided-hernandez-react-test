@@ -3,7 +3,7 @@ import { useProductsStore } from 'store/products/products.store'
 import styles from './Product.module.scss'
 import { useNavigate } from 'react-router-dom'
 
-const Product = () => {
+const Product: React.FC = () => {
   const [update, setUpdate] = useState(false)
   const [formData, setFormData] = useState({
     title: '',
@@ -53,7 +53,7 @@ const Product = () => {
   }
 
   return (
-    <section>
+    <section className={`${styles.productContainer} subContainer`}>
       <figure className={styles.productBackground}>
         <img
           src={product.image}
@@ -64,11 +64,19 @@ const Product = () => {
       <div>
         <h1>{product.title}</h1>
         <p>{product.description}</p>
-        <div>{product.category}</div>
+        <span>
+          <strong>{product.category}</strong>
+        </span>
       </div>
-      <div>
-        <button onClick={handleEditClick}>Update</button>
+      <div className={styles.containerButtons}>
         <button
+          className={`${styles.containerButtons} button`}
+          onClick={handleEditClick}
+        >
+          Update
+        </button>
+        <button
+          className={`${styles.containerButtons} button darkButton`}
           onClick={() => {
             navigate('/products', { replace: true })
             removeProduct(product.id)
@@ -78,59 +86,68 @@ const Product = () => {
         </button>
       </div>
       {update && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Title:
-            <input
-              type='text'
-              name='title'
-              value={formData.title}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-          <label>
-            Price:
-            <input
-              type='number'
-              name='price'
-              value={formData.price}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-          <label>
-            Description:
-            <textarea
-              name='description'
-              value={formData.description}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-          <label>
-            Category:
-            <input
-              type='text'
-              name='category'
-              value={formData.category}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-          <label>
-            Image URL:
-            <input
-              type='text'
-              name='image'
-              value={formData.image}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-          <button type='submit'>Save</button>
+        <form
+          className={styles.updateForm}
+          onSubmit={handleSubmit}
+        >
+          <label htmlFor='title'>Title</label>
+          <input
+            className='field'
+            id='title'
+            type='text'
+            name='title'
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+          />
+          <label htmlFor='price'>Price</label>
+          <input
+            className='field'
+            id='price'
+            type='number'
+            name='price'
+            value={formData.price}
+            onChange={handleInputChange}
+            required
+          />
+          <label htmlFor='description'>Description</label>
+          <textarea
+            id='description'
+            className='field'
+            name='description'
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+          />
+          <label htmlFor='category'>Category</label>
+          <input
+            className='field'
+            id='category'
+            type='text'
+            name='category'
+            value={formData.category}
+            onChange={handleInputChange}
+            required
+          />
+          <label htmlFor='image'>Image URL</label>
+          <input
+            className='field'
+            id='image'
+            type='text'
+            name='image'
+            value={formData.image}
+            onChange={handleInputChange}
+            required
+          />
+          <button
+            type='submit'
+            className='button darkButton'
+          >
+            Save
+          </button>
           <button
             type='button'
+            className='button'
             onClick={() => setUpdate(false)}
           >
             Cancel

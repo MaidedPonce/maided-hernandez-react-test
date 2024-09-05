@@ -1,11 +1,11 @@
 import LoginForm from 'ui/components/LoginForm/LoginForm'
 import React from 'react'
 
-const Login = () => {
+const Login: React.FC = () => {
   return (
-    <div>
+    <main className='container'>
       <LoginForm />
-    </div>
+    </main>
   )
 }
 

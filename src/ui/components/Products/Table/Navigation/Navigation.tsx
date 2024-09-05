@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from '../Table.module.scss'
 
 interface Navigation {
   currentIndex: number
@@ -16,17 +17,18 @@ const Navigation = ({
   handleGoToPage,
 }: Navigation) => {
   return (
-    <nav className='flex-wrap'>
-      <ul className='flex-wrap gap-4'>
+    <nav>
+      <ul className={styles.nav}>
         <li>
           <button
+            className='button'
             disabled={currentIndex === 0}
             onClick={prevoffset}
           >
             Previous
           </button>
         </li>
-        {currentIndex > 5 && (
+        {currentIndex >= 5 && (
           <>
             <li>{currentIndex - 2}</li>
             <li>{currentIndex - 1}</li>
@@ -35,6 +37,7 @@ const Navigation = ({
         {pagination?.map((i) => (
           <li key={i}>
             <button
+              className={i === currentIndex ? 'button darkButton' : 'button'}
               disabled={i === currentIndex}
               onClick={() => handleGoToPage(i)}
             >
@@ -42,7 +45,7 @@ const Navigation = ({
             </button>
           </li>
         ))}
-        {currentIndex > 5 && (
+        {currentIndex >= 5 && (
           <>
             <li>{currentIndex + 1}</li>
             <li>{currentIndex + 2}</li>
@@ -50,6 +53,7 @@ const Navigation = ({
         )}
         <li>
           <button
+            className='button'
             disabled={pagination?.length === currentIndex}
             onClick={nextoffset}
           >
