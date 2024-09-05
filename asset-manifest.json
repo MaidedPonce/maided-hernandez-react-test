@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tianquiztlinet/static/css/main.a28a5d12.css",
-    "main.js": "/tianquiztlinet/static/js/main.d4fbc651.js",
-    "static/js/453.64afa569.chunk.js": "/tianquiztlinet/static/js/453.64afa569.chunk.js",
-    "index.html": "/tianquiztlinet/index.html",
-    "main.a28a5d12.css.map": "/tianquiztlinet/static/css/main.a28a5d12.css.map",
-    "main.d4fbc651.js.map": "/tianquiztlinet/static/js/main.d4fbc651.js.map",
-    "453.64afa569.chunk.js.map": "/tianquiztlinet/static/js/453.64afa569.chunk.js.map"
+    "main.css": "/maided-hernandez-react-test/static/css/main.a28a5d12.css",
+    "main.js": "/maided-hernandez-react-test/static/js/main.e25574eb.js",
+    "static/js/453.64afa569.chunk.js": "/maided-hernandez-react-test/static/js/453.64afa569.chunk.js",
+    "index.html": "/maided-hernandez-react-test/index.html",
+    "main.a28a5d12.css.map": "/maided-hernandez-react-test/static/css/main.a28a5d12.css.map",
+    "main.e25574eb.js.map": "/maided-hernandez-react-test/static/js/main.e25574eb.js.map",
+    "453.64afa569.chunk.js.map": "/maided-hernandez-react-test/static/js/453.64afa569.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a28a5d12.css",
-    "static/js/main.d4fbc651.js"
+    "static/js/main.e25574eb.js"
   ]
 }
