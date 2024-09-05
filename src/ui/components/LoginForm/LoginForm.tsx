@@ -19,7 +19,6 @@ const LoginForm: React.FC = () => {
   const password = useUserStore((state) => state.password)
   const setIsLogged = useUserStore((state) => state.setIsLogged)
   const isLogged = useUserStore((state) => state.isLogged)
-  console.log(email)
   const onSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (!validatePassword(user.password))
