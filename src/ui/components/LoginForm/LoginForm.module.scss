@@ -1,0 +1,17 @@
+.loginForm {
+    border: 1px solid white;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    .title {
+        text-align: start;
+        font-weight: 600;
+    }
+    .enter {
+        padding: 1rem;
+        background-color: black;
+        margin: 0.5rem 0;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+    }
+}
