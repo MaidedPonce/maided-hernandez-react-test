@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tianquiztlinet/static/css/main.a28a5d12.css",
-    "main.js": "/tianquiztlinet/static/js/main.eebf0294.js",
+    "main.js": "/tianquiztlinet/static/js/main.fd81bbf7.js",
     "static/js/453.64afa569.chunk.js": "/tianquiztlinet/static/js/453.64afa569.chunk.js",
     "index.html": "/tianquiztlinet/index.html",
     "main.a28a5d12.css.map": "/tianquiztlinet/static/css/main.a28a5d12.css.map",
-    "main.eebf0294.js.map": "/tianquiztlinet/static/js/main.eebf0294.js.map",
+    "main.fd81bbf7.js.map": "/tianquiztlinet/static/js/main.fd81bbf7.js.map",
     "453.64afa569.chunk.js.map": "/tianquiztlinet/static/js/453.64afa569.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a28a5d12.css",
-    "static/js/main.eebf0294.js"
+    "static/js/main.fd81bbf7.js"
   ]
 }
