@@ -1,1 +1,1 @@
-export const api: string = process.env.REACT_APP_API || 'localhost:3000/'
+export const api: string = process.env.REACT_APP_API || 'http://localhost:3000/'
