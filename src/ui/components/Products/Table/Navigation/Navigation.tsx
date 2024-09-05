@@ -50,7 +50,7 @@ const Navigation = ({
         )}
         <li>
           <button
-            disabled={pagination?.length === currentIndex + 1}
+            disabled={pagination?.length === currentIndex}
             onClick={nextoffset}
           >
             Next

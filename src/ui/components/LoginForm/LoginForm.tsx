@@ -4,8 +4,8 @@ import validatePassword, { isSamePassword } from 'utils/validate_password'
 import validateEmail from 'utils/validate_email'
 import { User } from 'store/user/user.type'
 import { useUserStore } from 'store/user/user.store'
-import { useNavigate } from 'react-router-dom'
-import CryptoJS from 'crypto-js'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { handleDecrypt } from 'utils/encrypt'
 
 const LoginForm = () => {
   const [user, setUser] = useState<User>({
@@ -13,23 +13,35 @@ const LoginForm = () => {
     password: '',
     confirmPassword: '',
   })
-  const setUserStore = useUserStore((state) => state.setUser)
   const navigate = useNavigate()
-
-  const handleEncrypt = (info: string) => {
-    const encrypted = CryptoJS.AES.encrypt(info, 'secretKey').toString()
-    return encrypted
-  }
+  const email = useUserStore((state) => state.email)
+  const password = useUserStore((state) => state.password)
+  const setIsLogged = useUserStore((state) => state.setIsLogged)
+  const isLogged = useUserStore((state) => state.isLogged)
 
   const onSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (!validatePassword(user.password)) return
     if (!validateEmail(user.email)) return
     if (!isSamePassword(user.password, user.confirmPassword)) return
-    const email = handleEncrypt(user.email)
-    setUserStore(email)
-    navigate('/products', { replace: true })
+    if (
+      handleDecrypt(email) === user.email &&
+      handleDecrypt(password) === user.password
+    ) {
+      setIsLogged(true)
+      navigate('/products', { replace: true })
+    }
   }
+
+  if (isLogged) {
+    return (
+      <Navigate
+        to='/products'
+        replace
+      />
+    )
+  }
+
   return (
     <form
       onSubmit={onSubmit}

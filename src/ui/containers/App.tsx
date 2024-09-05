@@ -6,6 +6,8 @@ import NotFound from './NotFound'
 import Products from './Products'
 import Auth from 'ui/components/Auth/Auth'
 import CreateProduct from './CreateProduct'
+import ProductId from './ProductId'
+import Users from './Users'
 
 function App() {
   return (
@@ -24,7 +26,7 @@ function App() {
             />
             <Route
               path='/products/:id'
-              element={<NotFound />}
+              element={<ProductId />}
             />
             <Route
               path='/products/create'
@@ -32,25 +34,9 @@ function App() {
             />
             <Route
               path='/users'
-              element={<NotFound />}
+              element={<Users />}
             />
           </Route>
-          <Route
-            path='/products'
-            element={<Products />}
-          />
-          <Route
-            path='/products/:id'
-            element={<NotFound />}
-          />
-          <Route
-            path='/products/create'
-            element={<NotFound />}
-          />
-          <Route
-            path='/users'
-            element={<NotFound />}
-          />
           {/* Not found */}
           <Route
             path='/*'

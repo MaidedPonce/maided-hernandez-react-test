@@ -3,13 +3,15 @@ import { getProducts } from 'services/products/products.services'
 import { Product } from 'store/products/product.type'
 import styles from './Table.module.scss'
 import { useProductsStore } from 'store/products/products.store'
-import { FaSort } from 'react-icons/fa6'
+import { FaEye, FaSort } from 'react-icons/fa6'
 import Navigation from './Navigation/Navigation'
+import { useNavigate } from 'react-router-dom'
 
 const Table = () => {
+  const dataStored = useProductsStore((state) => state.products)
   const [page, setPage] = useState(0)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [newData, setData] = useState<Product[][]>([])
+  const [newData, setData] = useState<Product[][]>(dataStored || [])
   const [hasFetched, setHasFetched] = useState(false)
   const [sortConfig, setSortConfig] = useState<{
     key: keyof Product
@@ -18,7 +20,9 @@ const Table = () => {
   const [result, setResult] = useState('')
 
   const setProducts = useProductsStore((state) => state.setProducts)
+  const setProduct = useProductsStore((state) => state.setProduct)
 
+  const navigate = useNavigate()
   const sortedData = useMemo(() => {
     if (!newData[currentIndex] || newData[currentIndex].length === 0) {
       return []
@@ -40,7 +44,7 @@ const Table = () => {
   }, [newData, currentIndex, sortConfig])
 
   const getResults = sortedData?.filter((prod) => {
-    return prod.title.toLocaleLowerCase().includes(result.toLocaleLowerCase())
+    return prod?.title?.toLocaleLowerCase().includes(result.toLocaleLowerCase())
   })
   const requestSort = (key: keyof Product) => {
     let direction: 'asc' | 'desc' = 'asc'
@@ -50,7 +54,19 @@ const Table = () => {
     setSortConfig({ key, direction })
   }
 
+  const sortData = (data: Product[]) => {
+    const allPages = 5
+    const chunks = Array.from(
+      { length: Math.ceil(data.length / allPages) },
+      (v, i) => data.slice(i * allPages, i * allPages + allPages)
+    )
+    setData(chunks)
+    setProducts(chunks)
+  }
   useEffect(() => {
+    if (newData.length !== 0) {
+      return sortData(newData.flat())
+    }
     const controller = new AbortController()
     const { signal } = controller
 
@@ -59,13 +75,7 @@ const Table = () => {
     getProducts({ signal })
       .then((data) => {
         if (!signal.aborted) {
-          const allPages = 5
-          const chunks = Array.from(
-            { length: Math.ceil(data.length / allPages) },
-            (v, i) => data.slice(i * allPages, i * allPages + allPages)
-          )
-          setData(chunks)
-          setProducts(chunks)
+          sortData(data)
           setHasFetched(true)
         }
       })
@@ -85,16 +95,18 @@ const Table = () => {
     const chunks = Array.from({ length: Math.ceil(arr.length / 5) }, (v, i) =>
       arr.slice(i * 5, i * 5 + 5)
     )
+    console.log(chunks[page], page)
     return chunks[page]
-  }, [currentIndex, page, newData])
+  }, [currentIndex, page, newData, getResults])
 
   const nextoffset = () => {
     if (newData.length === 0) return
+    if (pagination?.length >= 5) setPage(page + 1)
     if (pagination?.length < 5) {
       return setCurrentIndex((prev) => prev + 1)
     } else {
-      setCurrentIndex(5)
-      setPage(page + 1)
+      setCurrentIndex((prev) => prev + 1)
+      // setPage(page + 1)
     }
   }
   const prevoffset = () => {
@@ -106,8 +118,8 @@ const Table = () => {
     }
   }
   const handleGoToPage = (pageNum: number) => {
-    newData[pageNum]
     setCurrentIndex(pageNum)
+    return newData[pageNum]
   }
   return (
     <>
@@ -149,6 +161,13 @@ const Table = () => {
               Category
               <FaSort />
             </th>
+            <th
+              scope='col'
+              className='px-6 py-3 bg-gray-50 text-center'
+            >
+              See more...
+              <FaSort />
+            </th>
           </tr>
         </thead>
         <tbody className='border-b border-gray-200'>
@@ -169,6 +188,14 @@ const Table = () => {
               <td>{product.title}</td>
               <td>{product.price}</td>
               <td>{product.category}</td>
+              <td
+                onClick={() => {
+                  setProduct(product)
+                  navigate(`/products/id=${product.id}`)
+                }}
+              >
+                <FaEye />
+              </td>
             </tr>
           ))}
         </tbody>

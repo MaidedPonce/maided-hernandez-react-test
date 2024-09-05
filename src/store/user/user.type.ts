@@ -6,5 +6,8 @@ export interface User {
 
 export interface UserStore {
   email: string
-  setUser: (email: string) => void
+  password: string
+  isLogged: boolean
+  setUser: (email: string, password: string) => void
+  setIsLogged: (isLogged: boolean) => void
 }

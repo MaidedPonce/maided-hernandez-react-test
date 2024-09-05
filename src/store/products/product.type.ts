@@ -11,8 +11,19 @@ export type Product = {
   }
 }
 
+export type CreateProductType = {
+  title: string
+  price: number
+  description: string
+  image: string
+  category: string
+}
+
 export type ProductStore = {
-  products: Product[]
+  products: Product[][]
   product: Product
-  setProducts: (products: Product[]) => void
+  setProducts: (products: Product[][]) => void
+  setProduct: (product: Product) => void
+  updateProduct: (product: Product) => void
+  removeProduct: (productId: number) => void
 }
