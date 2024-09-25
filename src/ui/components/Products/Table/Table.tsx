@@ -104,6 +104,7 @@ const Table: React.FC = () => {
   }, [currentIndex, page, newData, getResults])
 
   const nextoffset = () => {
+    if (getResults.length < 5) return
     if (newData.length === 0) return
     if (pagination?.length >= 5 && currentIndex === 4) setPage(page + 1)
     if (pagination?.length < 5) {
@@ -125,6 +126,7 @@ const Table: React.FC = () => {
     setCurrentIndex(pageNum)
     return newData[pageNum]
   }
+
   return (
     <section className={`${styles.tableContainer} subContainer`}>
       {newData.length === 0 && !loading ? (
