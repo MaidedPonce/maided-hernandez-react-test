@@ -127,7 +127,7 @@ const Table: React.FC = () => {
   }
   return (
     <section className={`${styles.tableContainer} subContainer`}>
-      {getResults.length === 0 && loading === false ? (
+      {newData.length === 0 && !loading ? (
         <p>There is not available data</p>
       ) : loading ? (
         'Loading data....'
@@ -179,40 +179,41 @@ const Table: React.FC = () => {
                 <th scope='col'>See more...</th>
               </tr>
             </thead>
-            <tbody className='border-b border-gray-200'>
-              {getResults?.map((product: Product) => (
-                <tr
-                  key={product.id}
-                  className='px-6 py-4 h-12 text-center font-medium text-gray-900 whitespace-nowrap bg-gray-50'
-                >
-                  <td>
-                    <figure className={styles.productImage}>
-                      <img
-                        src={product.image}
-                        alt={product.description}
-                        className={styles.image}
-                      />
-                    </figure>
-                  </td>
-                  <td>
-                    <p className={styles.cell}>{product.title}</p>
-                  </td>
-                  <td>
-                    <p className={styles.cell}>{product.price}</p>
-                  </td>
-                  <td>
-                    <p className={styles.cell}>{product.category}</p>
-                  </td>
-                  <td
-                    onClick={() => {
-                      setProduct(product)
-                      navigate(`/products/id=${product.id}`)
-                    }}
-                  >
-                    <FaEye className={styles.eye} />
-                  </td>
-                </tr>
-              ))}
+            <tbody>
+              {getResults.length === 0 && !loading ? (
+                <p>There is not available data</p>
+              ) : (
+                getResults?.map((product: Product) => (
+                  <tr key={product.id}>
+                    <td>
+                      <figure className={styles.productImage}>
+                        <img
+                          src={product.image}
+                          alt={product.description}
+                          className={styles.image}
+                        />
+                      </figure>
+                    </td>
+                    <td>
+                      <p className={styles.cell}>{product.title}</p>
+                    </td>
+                    <td>
+                      <p className={styles.cell}>{product.price}</p>
+                    </td>
+                    <td>
+                      <p className={styles.cell}>{product.category}</p>
+                    </td>
+                    <td
+                      onClick={() => {
+                        setProduct(product)
+                        navigate(`/products/id=${product.id}`)
+                      }}
+                    >
+                      <FaEye className={styles.eye} />
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
           <Navigation
