@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/maided-hernandez-react-test/static/css/main.fd4e9a4b.css",
-    "main.js": "/maided-hernandez-react-test/static/js/main.bdf59951.js",
+    "main.js": "/maided-hernandez-react-test/static/js/main.750ba8ef.js",
     "static/js/453.cd17e1ed.chunk.js": "/maided-hernandez-react-test/static/js/453.cd17e1ed.chunk.js",
     "index.html": "/maided-hernandez-react-test/index.html",
     "main.fd4e9a4b.css.map": "/maided-hernandez-react-test/static/css/main.fd4e9a4b.css.map",
-    "main.bdf59951.js.map": "/maided-hernandez-react-test/static/js/main.bdf59951.js.map",
+    "main.750ba8ef.js.map": "/maided-hernandez-react-test/static/js/main.750ba8ef.js.map",
     "453.cd17e1ed.chunk.js.map": "/maided-hernandez-react-test/static/js/453.cd17e1ed.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fd4e9a4b.css",
-    "static/js/main.bdf59951.js"
+    "static/js/main.750ba8ef.js"
   ]
 }
