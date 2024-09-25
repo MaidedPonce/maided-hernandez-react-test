@@ -62,6 +62,7 @@ const Table: React.FC = () => {
     )
     setData(chunks)
     setProducts(chunks)
+    setLoading(false)
   }
   useEffect(() => {
     if (newData.length !== 0) {
@@ -77,6 +78,7 @@ const Table: React.FC = () => {
         if (!signal.aborted) {
           sortData(data)
           setHasFetched(true)
+          setLoading(false)
         }
       })
       .catch((error) => {
@@ -125,7 +127,7 @@ const Table: React.FC = () => {
   }
   return (
     <section className={`${styles.tableContainer} subContainer`}>
-      {getResults.length === 0 && !loading ? (
+      {getResults.length === 0 && loading === false ? (
         <p>There is not available data</p>
       ) : loading ? (
         'Loading data....'
