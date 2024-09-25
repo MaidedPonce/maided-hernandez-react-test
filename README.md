@@ -32,4 +32,4 @@ To run the project locally, follow these steps:
 
 # Link
 
-[https://maidedponce.github.io/tianquiztlinet/#/login](https://maidedponce.github.io/tianquiztlinet/#/login 'https://maidedponce.github.io/tianquiztlinet/#/login')
+[https://maidedponce.github.io/maided-hernandez-react-test/#/products](https://maidedponce.github.io/maided-hernandez-react-test/#/products 'https://maidedponce.github.io/maided-hernandez-react-test/#/products')
