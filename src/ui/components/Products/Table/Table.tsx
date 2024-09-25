@@ -208,7 +208,7 @@ const Table: React.FC = () => {
                     <td
                       onClick={() => {
                         setProduct(product)
-                        navigate(`/products/id=${product.id}`)
+                        navigate(`/products/${product.id}`)
                       }}
                     >
                       <FaEye className={styles.eye} />

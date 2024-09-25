@@ -9,6 +9,7 @@ const ProductId: React.FC = () => {
   const productsId = useProductsStore((state) => state.product)
   useEffect(() => {
     const param = Number(id)
+    console.log(param)
     if (Number.isNaN(param) || param !== productsId.id) return navigate('/404')
   }, [])
   return (
